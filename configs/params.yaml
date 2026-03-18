@@ -1,0 +1,41 @@
+# ===============================
+# Data Mining Project Parameters
+# ===============================
+
+seed: 42
+
+paths:
+  raw_data_math: data/raw/student-mat.csv
+  raw_data_portuguese: data/raw/student-por.csv
+  processed_data: data/processed/student_clean.csv
+  encoded_data: data/processed/student_encoded.csv
+
+  train_features: data/processed/X_train.csv
+  test_features: data/processed/X_test.csv
+
+  train_labels: data/processed/y_train.csv
+  test_labels: data/processed/y_test.csv
+
+  models: outputs/models/
+  figures: outputs/figures/
+  reports: outputs/reports/
+
+preprocessing:
+  test_size: 0.2
+  scaling: standard
+
+clustering:
+  algorithm: kmeans
+  n_clusters: 3
+
+classification:
+  model: random_forest
+  n_estimators: 100
+  max_depth: 10
+
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1_score

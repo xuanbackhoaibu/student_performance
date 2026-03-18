@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Jupyter notebook
+.ipynb_checkpoints/
+
+# Virtual environment
+venv/
+.env
+
+# VS Code settings
+.vscode/
+
+# Data files (không upload data lớn)
+data/processed/
+
+# Model files
+outputs/models/
+
+# Temporary outputs
+outputs/figures/
+outputs/tables/
+
+# OS files
+.DS_Store
+Thumbs.db. 
