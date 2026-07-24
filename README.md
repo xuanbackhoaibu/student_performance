@@ -1,115 +1,62 @@
-#  Student Performance Data Mining Project
+# Student Performance Data Mining
 
-## 1. Giới thiệu
+Bài tập lớn môn Khai phá dữ liệu, sử dụng bộ dữ liệu Student Performance của UCI để phân tích hành vi học tập và xây dựng mô hình dự đoán học sinh đậu/rớt.
 
-Dự án nhằm phân tích dữ liệu học sinh và xây dựng các mô hình học máy để dự đoán khả năng đậu / rớt môn học.
+## Mục tiêu
 
-Ngoài dự đoán, dự án còn tập trung vào:
+- Phân tích dữ liệu học sinh bằng EDA
+- Xử lý dữ liệu, encoding, scaling và chia train/test
+- Khai phá luật kết hợp bằng Apriori
+- Phân cụm học sinh bằng KMeans
+- Huấn luyện mô hình phân loại dự đoán `pass`
+- Thử nghiệm học bán giám sát bằng LabelPropagation
+- Đánh giá mô hình bằng Accuracy, Precision, Recall, F1-score, Confusion Matrix và ROC-AUC
 
--  Khai phá tri thức từ dữ liệu (data mining)
--  Phân tích hành vi học tập
--  Đưa ra insight có thể áp dụng trong thực tế giáo dục
+## Công nghệ sử dụng
 
----
+- Python
+- pandas, numpy
+- matplotlib, seaborn
+- scikit-learn
+- mlxtend
+- PyYAML
+- Jupyter Notebook
 
-## 2. Bài toán
-
-Bài toán được xây dựng dưới dạng **classification (phân loại)**:
-
- Input: thông tin học sinh (studytime, absences, failures, ...)
- Output:
-
-   `pass = 1` → học sinh đậu (G3 ≥ 10)
-   `pass = 0` → học sinh rớt (G3 < 10)
-
----
-
-## 3. Dataset
+## Dataset
 
 - Nguồn: UCI Machine Learning Repository
-- Tên: Student Performance Dataset
+- Bộ dữ liệu: Student Performance
+- File dữ liệu trong repo:
+  - `data/raw/student-mat.csv`
+  - `data/raw/student-por.csv`
+  - `data/raw/student.txt`
 
-### Dữ liệu bao gồm:
+Biến mục tiêu `pass` được tạo từ điểm cuối kỳ `G3`:
 
- - Thông tin cá nhân: age, sex, address
- - Hành vi học tập: studytime, absences
- - Kết quả học tập: G1, G2, G3
-
-### Lưu ý:
-
- -  Biến G1, G2, G3 được loại bỏ khi training để tránh **data leakage**
- -  Biến mục tiêu `pass` được tạo từ G3
-
-
-## 4. Các bước thực hiện
-
-### 1. Exploratory Data Analysis (EDA)
-
- -  Phân tích phân phối dữ liệu
- -  Xác định yếu tố ảnh hưởng đến kết quả học tập
- -  Phát hiện vấn đề: missing, duplicate, imbalance
-
-
-### 2. Data Preprocessing
-
- -  Xử lý duplicate
- -  Encoding biến categorical
- -  Scaling dữ liệu số
- -  Train/Test split (stratified)
-
-
-### 3. Pattern Mining (Association Rules)
-
-Sử dụng thuật toán Apriori
-Khám phá luật kết hợp giữa:
-
-   - studytime
-   - absences
-   -  failures
-Đánh giá bằng: support, confidence, lift
-
-
-### 4. Clustering (KMeans)
-
- - Phân nhóm học sinh
- - Sử dụng Elbow method để chọn số cụm
- - Đánh giá bằng Silhouette Score
-
-
-### 5. Classification (Supervised Learning)
-
- -  Baseline: Logistic Regression
- -  Model chính: Random Forest
- -  Hyperparameter tuning (GridSearchCV)
- -  Cross-validation
-
-
-### 6. Semi-supervised Learning
-
- -  Sử dụng LabelPropagation
- -  Mô phỏng thiếu nhãn (10% → 70%)
- -  So sánh với supervised learning
- -  Vẽ learning curve
-
-
-### 7. Model Evaluation & Error Analysis
-
- -  Metrics: Accuracy, Precision, Recall, F1-score
- - Confusion Matrix
- - ROC-AUC
- - Phân tích lỗi (False Positive, False Negative)
- - Rút ra actionable insights
-
-
-## 5. Project Structure
-
+```text
+pass = 1 nếu G3 >= 10
+pass = 0 nếu G3 < 10
 ```
-configs/            cấu hình
 
+Các biến `G1`, `G2`, `G3` được loại khỏi tập huấn luyện để tránh data leakage.
+
+## Chức năng / nội dung đã làm
+
+- `01_eda.ipynb`: phân tích dữ liệu, phân phối điểm, missing/duplicate, insight ban đầu
+- `02_preprocessing.ipynb`: làm sạch dữ liệu, encoding biến categorical, scaling, stratified split
+- `03_pattern_mining.ipynb`: Apriori và association rules
+- `04_clustering.ipynb`: KMeans, Elbow Method, Silhouette Score
+- `05_classification.ipynb`: Logistic Regression, Decision Tree, Random Forest
+- `06_semi_supervised.ipynb`: LabelPropagation với nhiều tỷ lệ thiếu nhãn
+- `07_evaluation.ipynb`: tổng hợp kết quả, confusion matrix, ROC-AUC, phân tích lỗi
+
+## Cấu trúc thư mục
+
+```text
+configs/
+  params.yaml              cấu hình đường dẫn, seed, model
 data/
-  raw/              dữ liệu gốc
-  processed/        dữ liệu đã xử lý
-
+  raw/                     dữ liệu gốc
 notebooks/
   01_eda.ipynb
   02_preprocessing.ipynb
@@ -118,70 +65,74 @@ notebooks/
   05_classification.ipynb
   06_semi_supervised.ipynb
   07_evaluation.ipynb
-
-src/                source code (hàm xử lý, model)
-
+src/
+  data/                    load/clean dữ liệu
+  features/                tạo đặc trưng
+  mining/                  Apriori, clustering
+  models/                  supervised, semi-supervised
+  evaluation/              metrics/report
+  visualization/           biểu đồ
 scripts/
-  run_pipeline.py   chạy toàn bộ pipeline
-
-outputs/
-  figures/          biểu đồ
-  models/           model đã train
-  tables/           kết quả
+  run_pipeline.py          file pipeline tổng hợp
 ```
 
----
+## Cách chạy project
 
-## 6. Cách chạy project (Reproducible)
-
-### 1. Cài đặt môi trường
+Tạo môi trường ảo:
 
 ```bash
-pip install -r requirements.txt
+python -m venv .venv
+source .venv/bin/activate
 ```
 
-
-### 2. Chạy pipeline
+Cài thư viện:
 
 ```bash
-python scripts/run_pipeline.py
+pip install -r src/requirements.txt
 ```
 
-Pipeline sẽ thực hiện:
+Mở notebook:
 
- - Load dữ liệu
- - Tiền xử lý
- - Train model
- - Đánh giá
- - Lưu kết quả vào thư mục `outputs/`
+```bash
+jupyter notebook
+```
 
+Chạy lần lượt các notebook trong thư mục `notebooks/` từ `01_eda.ipynb` đến `07_evaluation.ipynb`.
 
-## 7. Kết quả
+Lưu ý: `scripts/run_pipeline.py` hiện đang là file khung, chưa chứa pipeline tự động hoàn chỉnh. Cách chạy khuyến nghị hiện tại là chạy bằng Jupyter Notebook.
 
-Dự án tạo ra:
+## Ảnh demo / kết quả
 
- -  Biểu đồ EDA
- -  Luật kết hợp (association rules)
- -  Kết quả phân cụm (clustering)
- -  Kết quả classification (Accuracy, F1-score)
- -  Confusion Matrix
- -  ROC Curve
- -  Feature Importance
+Notebook tạo ra các biểu đồ EDA, confusion matrix, ROC curve và feature importance khi chạy. Nên export thêm ảnh vào `outputs/figures/` để README hiển thị trực tiếp trên GitHub.
 
+Gợi ý ảnh nên bổ sung:
 
-## 8. Insight chính
+- Phân phối kết quả `pass`
+- Confusion Matrix của Random Forest
+- ROC Curve
+- Feature Importance
+- Biểu đồ KMeans/Silhouette
 
- - Học sinh có nhiều lần trượt (failures) có nguy cơ rớt cao
- -  Nghỉ học nhiều (absences) ảnh hưởng tiêu cực đến kết quả
- -  Tăng thời gian học (studytime) giúp cải thiện điểm
- - Có thể xây dựng hệ thống cảnh báo sớm cho học sinh yếu
+## Insight chính
 
+- Số lần trượt trước đó (`failures`) là tín hiệu quan trọng liên quan đến nguy cơ rớt
+- Nghỉ học nhiều (`absences`) có thể ảnh hưởng tiêu cực đến kết quả
+- Thời gian học (`studytime`) và bối cảnh gia đình/xã hội có liên quan đến hiệu suất học tập
+- Có thể phát triển thành hệ thống cảnh báo sớm cho học sinh có nguy cơ học yếu
 
-## 9. Ghi chú kỹ thuật
+## Điểm nổi bật khi trao đổi với nhà tuyển dụng
 
- -  Đã xử lý data leakage
- -  Sử dụng stratified split
- -  Có cross-validation
- -  Có phân tích lỗi chi tiết
- - Mô hình có thể tái lập (reproducible)
+- Có quy trình data mining tương đối đầy đủ: EDA, preprocessing, association rules, clustering, classification, evaluation
+- Có ý thức tránh data leakage khi loại `G1`, `G2`, `G3` khỏi tập huấn luyện
+- Biết so sánh nhiều mô hình và đọc kết quả bằng metric phù hợp
+- Có thể trình bày insight dữ liệu theo hướng ứng dụng thực tế trong giáo dục
 
+## Tài khoản demo
+
+Project phân tích dữ liệu chạy local bằng notebook, không có tài khoản demo.
+
+## Tác giả
+
+Trần Xuân Bắc
+
+GitHub: https://github.com/xuanbackhoaibu
