@@ -1,5 +1,7 @@
 # Student Performance Data Mining
 
+> 🌐 **Live Web Demo**: [https://xuanbackhoaibu.github.io/student_performance/](https://xuanbackhoaibu.github.io/student_performance/)
+
 Bài tập lớn môn Khai phá dữ liệu, sử dụng bộ dữ liệu Student Performance của UCI để phân tích hành vi học tập và xây dựng mô hình dự đoán học sinh đậu/rớt.
 
 ## Mục tiêu
@@ -99,19 +101,32 @@ jupyter notebook
 
 Chạy lần lượt các notebook trong thư mục `notebooks/` từ `01_eda.ipynb` đến `07_evaluation.ipynb`.
 
-Lưu ý: `scripts/run_pipeline.py` hiện đang là file khung, chưa chứa pipeline tự động hoàn chỉnh. Cách chạy khuyến nghị hiện tại là chạy bằng Jupyter Notebook.
+Hoặc chạy toàn bộ pipeline tự động qua dòng lệnh (CLI):
+
+```bash
+python scripts/run_pipeline.py
+```
+
+Khởi chạy ứng dụng Web Dashboard tương tác (Streamlit):
+
+```bash
+streamlit run app.py
+```
 
 ## Ảnh demo / kết quả
 
-Notebook tạo ra các biểu đồ EDA, confusion matrix, ROC curve và feature importance khi chạy. Nên export thêm ảnh vào `outputs/figures/` để README hiển thị trực tiếp trên GitHub.
+### 1. Top 10 đặc trưng quan trọng nhất (Random Forest)
+![Feature Importance](outputs/figures/feature_importance.png)
 
-Gợi ý ảnh nên bổ sung:
+### 2. Ma trận nhầm lẫn (Confusion Matrix) & ROC Curve
+<p align="center">
+  <img src="outputs/figures/confusion_matrix_rf.png" width="48%" />
+  <img src="outputs/figures/roc_curve_rf.png" width="48%" />
+</p>
 
-- Phân phối kết quả `pass`
-- Confusion Matrix của Random Forest
-- ROC Curve
-- Feature Importance
-- Biểu đồ KMeans/Silhouette
+### 3. Phân tích các yếu tố cốt lõi & Tương quan
+![Key Factors](outputs/figures/key_factors_analysis.png)
+![Correlation Heatmap](outputs/figures/correlation_heatmap.png)
 
 ## Insight chính
 
@@ -127,9 +142,10 @@ Gợi ý ảnh nên bổ sung:
 - Biết so sánh nhiều mô hình và đọc kết quả bằng metric phù hợp
 - Có thể trình bày insight dữ liệu theo hướng ứng dụng thực tế trong giáo dục
 
-## Tài khoản demo
+## Bản demo trực tuyến
 
-Project phân tích dữ liệu chạy local bằng notebook, không có tài khoản demo.
+Website tương tác trực tuyến được triển khai tại GitHub Pages:
+👉 **[https://xuanbackhoaibu.github.io/student_performance/](https://xuanbackhoaibu.github.io/student_performance/)**
 
 ## Tác giả
 

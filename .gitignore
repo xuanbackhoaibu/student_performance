@@ -21,9 +21,7 @@ data/processed/
 outputs/models/
 
 # Temporary outputs
-outputs/figures/
 outputs/tables/
-outputs/reports/
 
 # OS files
 .DS_Store
