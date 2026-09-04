@@ -8,6 +8,7 @@ __pycache__/
 
 # Virtual environment
 venv/
+.venv/
 .env
 
 # VS Code settings
@@ -22,6 +23,7 @@ outputs/models/
 # Temporary outputs
 outputs/figures/
 outputs/tables/
+outputs/reports/
 
 # OS files
 .DS_Store
